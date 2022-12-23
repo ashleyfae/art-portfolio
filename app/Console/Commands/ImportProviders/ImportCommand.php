@@ -50,6 +50,7 @@ class ImportCommand extends Command
             ->setLimit((int) $this->option('limit'))
             ->setPaginate((bool) ! $this->option('nopaging'))
             ->setIsDryRun((bool) $this->option('dry-run'))
+            ->setCommand($this)
             ->runForUser($user);
 
         $this->line('Import complete.');

@@ -1,0 +1,59 @@
+:root {
+    --color-pink: #f9009d;
+
+    --color-primary: var(--color-pink);
+
+    --color-bg: #171c25;
+    --color-text: #fff;
+    --color-links: var(--color-primary);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+a {
+    color: var(--color-links);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery {
+    /*display: flex;
+    flex-wrap: wrap;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: flex-start;*/
+
+    column-count: 1;
+    column-gap: .5rem;
+}
+.gallery--item {
+    /*flex: auto;
+    max-width: 50%;
+    padding: .5rem;*/
+    margin-bottom: .25rem;
+}
+@media (min-width: 600px) {
+    .gallery {
+        column-count: 2;
+    }
+}
+@media (min-width: 992px) {
+    .gallery {
+        column-count: 3;
+    }
+}

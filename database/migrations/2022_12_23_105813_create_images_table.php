@@ -17,7 +17,12 @@ return new class extends Migration
             $table->id();
             $table->text('title')->nullable();
             $table->longText('description')->nullable();
+            $table->text('alt_text')->nullable();
             $table->text('image_path');
+            $table->unsignedBigInteger('width')->nullable()->default(null);
+            $table->unsignedBigInteger('height')->nullable()->default(null);
+            $table->unsignedBigInteger('bytes')->nullable()->default(null);
+            $table->text('mime')->nullable()->default(null);
             $table->timestamps();
         });
 

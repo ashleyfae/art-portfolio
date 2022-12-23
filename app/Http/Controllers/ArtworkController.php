@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Artwork\ListArtwork;
+use App\DataTransferObjects\FilterArtwork;
+use App\Http\Requests\FilterArtworkRequest;
 use App\Http\Requests\StoreArtworkRequest;
 use App\Http\Requests\UpdateArtworkRequest;
 use App\Models\Artwork;
@@ -10,12 +13,12 @@ class ArtworkController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FilterArtworkRequest $request, ListArtwork $listArtwork)
     {
-        //
+        return view('home', [
+            'artworks' => $listArtwork->list(FilterArtwork::fromArray($request->validated())),
+        ]);
     }
 
     /**

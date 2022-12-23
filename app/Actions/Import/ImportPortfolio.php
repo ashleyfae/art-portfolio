@@ -60,6 +60,13 @@ class ImportPortfolio
         return $this;
     }
 
+    public function setCommand(Command $command): static
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
     public function runForUser(User $user): void
     {
         $this->user = $user;
@@ -90,10 +97,14 @@ class ImportPortfolio
         if (empty($artworks)) {
             $this->completed = true;
 
+            $this->log('-- No more artworks found.');
+
             return $artworks;
         }
 
         if (! $this->isDryRun) {
+            $this->log('-- Creating insert job.');
+
             $this->createInsertJob($artworks);
         }
 

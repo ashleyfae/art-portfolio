@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Models\Traits\BelongsToUser;
+use App\Models\Traits\HasRoute;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Carbon;
 
@@ -16,9 +16,6 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $user_id
  * @property User $user
- * @property string|null $title
- * @property string|null $description
- * @property string $image_path
  * @property array|null $external_ids
  * @property bool $is_featured
  * @property Carbon $published_at
@@ -34,7 +31,7 @@ use Illuminate\Support\Carbon;
  */
 class Artwork extends Model
 {
-    use HasFactory, BelongsToUser;
+    use HasFactory, BelongsToUser, HasRoute;
 
     protected $casts = [
         'published_at' => 'datetime',

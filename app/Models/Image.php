@@ -12,7 +12,12 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property ?string $title
  * @property ?string $description
+ * @property ?string $alt_text
  * @property string $image_path
+ * @property ?int $width
+ * @property ?int $height
+ * @property ?int $bytes
+ * @property ?string $mime
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
@@ -24,6 +29,6 @@ class Image extends Model
 
     public function artworks(): BelongsToMany
     {
-
+        return $this->belongsToMany(Artwork::class);
     }
 }
