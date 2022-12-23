@@ -5,6 +5,7 @@ namespace App\Jobs\Import;
 use App\Exceptions\DownloadImageException;
 use App\Models\Artwork;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\User;
 use App\Services\PortfolioProviders\Adapters\ArtworkAdapter;
 use App\Services\PortfolioProviders\DataTransferObjects\Artwork as ArtworkDto;
@@ -14,6 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -43,19 +45,28 @@ class SaveImportedArtwork implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
-        $artwork = (new ArtworkAdapter($this->artworkDto))->convertFromSource();
-        $artwork->image_path = $this->downloadImage();
+        DB::transaction(function() {
+            $artwork = (new ArtworkAdapter($this->artworkDto))->convertFromSource();
 
-        /** @var Artwork $artwork */
-        $artwork = $this->user->artworks()->save($artwork);
+            /** @var Image $image */
+            $image = $artwork->images[0];
+            $image->image_path = $this->downloadImage();
 
-        foreach($this->artworkDto->categories as $categoryName) {
-            $category = Category::firstOrCreate([
-                'name' => $categoryName,
-            ]);
+            $image->save();
 
-            $artwork->categories()->save($category);
-        }
+            /** @var Artwork $artwork */
+            $artwork = $this->user->artworks()->save($artwork);
+
+            $artwork->images()->attach($image->id, ['is_primary' => true]);
+
+            foreach($this->artworkDto->categories as $categoryName) {
+                $category = Category::firstOrCreate([
+                    'name' => $categoryName,
+                ]);
+
+                $artwork->categories()->save($category);
+            }
+        });
     }
 
     /**

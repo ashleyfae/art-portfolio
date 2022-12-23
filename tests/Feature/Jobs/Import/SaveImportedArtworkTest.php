@@ -5,6 +5,7 @@ namespace Tests\Feature\Jobs\Import;
 use App\Jobs\Import\SaveImportedArtwork;
 use App\Models\Artwork;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\User;
 use App\Services\PortfolioProviders\DataTransferObjects\Artwork as ArtworkDto;
 use App\Services\PortfolioProviders\Enums\Provider;
@@ -48,11 +49,10 @@ class SaveImportedArtworkTest extends TestCase
             $this->assertDatabaseMissing(Category::class, ['name' => 'Digital Art']);
         }
 
-        $this->assertDatabaseMissing(Artwork::class, [
+        $this->assertDatabaseCount(Artwork::class, 0);
+        $this->assertDatabaseMissing(Image::class, [
             'title' => 'My Artwork',
         ]);
-
-        //Storage::assertDirectoryEmpty(date('Y/m', $artworkDto->publishedAt));
 
         /** @var SaveImportedArtwork&MockInterface $job */
         $job = $this->partialMock(SaveImportedArtwork::class, function(MockInterface $mock) {
@@ -60,7 +60,7 @@ class SaveImportedArtworkTest extends TestCase
 
             $mock->expects('downloadImage')
                 ->once()
-                ->andReturn('path/to/image/jpg');
+                ->andReturn('path/to/image.jpg');
         });
 
         $job->user = $user;
@@ -68,8 +68,11 @@ class SaveImportedArtworkTest extends TestCase
 
         $job->handle();
 
-        $this->assertDatabaseHas(Artwork::class, [
+        $this->assertDatabaseCount(Artwork::class, 1);
+        $this->assertDatabaseHas(Image::class, [
             'title' => 'My Artwork',
+            'description' => 'Description',
+            'image_path' => 'path/to/image.jpg',
         ]);
 
         $this->assertDatabaseHas(Category::class, ['name' => 'Digital Art']);
@@ -83,6 +86,10 @@ class SaveImportedArtworkTest extends TestCase
         yield [false];
     }
 
+    /**
+     * @covers \App\Jobs\Import\SaveImportedArtwork::downloadImage()
+     * @throws \Exception
+     */
     public function testCanDownloadImage(): void
     {
         Storage::fake('public');

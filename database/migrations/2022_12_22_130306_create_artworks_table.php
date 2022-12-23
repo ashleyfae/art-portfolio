@@ -15,12 +15,17 @@ return new class extends Migration
      */
     public function up()
     {
+        // This is because unit tests don't use Postgres and thus don't have the UUID ext.
+        if (! App::runningUnitTests()) {
+            DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+        }
+
         Schema::create('artworks', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete()->index();
-            $table->text('title')->nullable();
-            $table->longText('description')->nullable();
-            $table->text('image_path');
+            //$table->text('title')->nullable();
+            //$table->longText('description')->nullable();
+            //$table->text('image_path');
             $table->json('external_ids')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->dateTime('published_at');

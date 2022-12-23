@@ -15,12 +15,6 @@ return new class extends Migration
      */
     public function up()
     {
-        // This is because unit tests don't use Postgres and thus don't have the UUID ext.
-        if (! App::runningUnitTests()) {
-            DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
-        }
-
-
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');

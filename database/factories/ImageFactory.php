@@ -17,7 +17,8 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->title,
+            'image_path' => 'path/to/image.jpg',
         ];
     }
 }

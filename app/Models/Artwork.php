@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Carbon;
 
 /**
@@ -24,6 +26,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
+ * @property Image[]|Collection $images
+ * @property Image|null $primaryImage
  * @property Category[]|Collection $categories
  *
  * @mixin Builder
@@ -41,5 +45,24 @@ class Artwork extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function images(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class)
+            ->with('is_primary');
+    }
+
+    public function primaryImage(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            Image::class,
+            ArtworkImage::class,
+            'artwork_id',
+            'id',
+            null,
+            'image_id'
+        )
+            ->where('is_primary', true);
     }
 }

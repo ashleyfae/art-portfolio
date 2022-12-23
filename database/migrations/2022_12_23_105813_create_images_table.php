@@ -15,7 +15,18 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->text('title')->nullable();
+            $table->longText('description')->nullable();
+            $table->text('image_path');
             $table->timestamps();
+        });
+
+        Schema::create('artwork_image', function(Blueprint $table) {
+            $table->foreignIdFor(\App\Models\Artwork::class);
+            $table->foreignIdFor(\App\Models\Image::class);
+            $table->boolean('is_primary')->default(false);
+
+            $table->unique(['artwork_id', 'image_id']);
         });
     }
 
@@ -27,5 +38,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('images');
+        Schema::dropIfExists('artwork_image');
     }
 };
