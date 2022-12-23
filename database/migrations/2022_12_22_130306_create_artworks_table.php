@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -22,6 +24,13 @@ return new class extends Migration
             $table->json('external_ids')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->dateTime('published_at');
+
+            if (App::runningUnitTests()) {
+                $table->uuid('uuid')->nullable()->unique();
+            } else {
+                $table->uuid('uuid')->default(DB::raw('uuid_generate_v4()'))->unique();
+            }
+
             $table->timestamps();
         });
     }

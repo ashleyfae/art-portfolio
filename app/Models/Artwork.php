@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property array|null $external_ids
  * @property bool $is_featured
  * @property Carbon $published_at
+ * @property string $uuid
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
