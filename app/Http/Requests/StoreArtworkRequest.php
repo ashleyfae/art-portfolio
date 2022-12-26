@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Artwork;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreArtworkRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreArtworkRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->can('create', Artwork::class);
     }
 
     /**
@@ -24,7 +25,14 @@ class StoreArtworkRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'images.*.image' => ['required', 'image'],
+            'images.*.title' => ['nullable', 'string', 'max:255'],
+            'images.*.description' => ['nullable', 'string', 'max:10000'],
+            'images.*.alt_text' => ['nullable', 'string', 'max:1000'],
+            'images.*.primary' => ['required', 'boolean'],
+            'images.*.id' => ['nullable', 'exists:images,id'],
+            'is_featured' => ['nullable', 'boolean'],
+            'published_at' => ['required', 'datetime'],
         ];
     }
 }

@@ -6,6 +6,14 @@
             <h1>{{ $artwork->primaryImage->title }}</h1>
         @endif
 
+        @can('update', $artwork)
+            <ul class="navbar">
+                <li>
+                    <a href="{{ route('artworks.edit', $artwork) }}">Edit</a>
+                </li>
+            </ul>
+        @endcan
+
         <figure class="text-center">
             <img
                 src="{{ \Illuminate\Support\Facades\Storage::url($artwork->primaryImage->image_path) }}"

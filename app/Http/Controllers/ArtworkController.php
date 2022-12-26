@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Artwork\CreateOrUpdateArtworkFromRequest;
 use App\Actions\Artwork\ListArtwork;
 use App\DataTransferObjects\FilterArtwork;
 use App\Http\Requests\FilterArtworkRequest;
 use App\Http\Requests\StoreArtworkRequest;
 use App\Http\Requests\UpdateArtworkRequest;
 use App\Models\Artwork;
+use Illuminate\Support\Carbon;
 
 class ArtworkController extends Controller
 {
@@ -31,7 +33,10 @@ class ArtworkController extends Controller
      */
     public function create()
     {
-        //
+        return view('artwork.create', [
+            'artwork' => (new Artwork())->setAttribute('is_featured', true),
+            'publishedAt' => Carbon::now()->toDateTimeString(),
+        ]);
     }
 
     /**
@@ -40,9 +45,13 @@ class ArtworkController extends Controller
      * @param  \App\Http\Requests\StoreArtworkRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreArtworkRequest $request)
+    public function store(StoreArtworkRequest $request, CreateOrUpdateArtworkFromRequest $createArtworkFromRequest)
     {
-        //
+        $artwork = $createArtworkFromRequest->execute($request);
+
+        $request->session()->flash('success', 'Artwork created successfully');
+
+        return redirect($artwork->path);
     }
 
     /**
@@ -55,7 +64,7 @@ class ArtworkController extends Controller
     {
         return view('artwork.show', [
             'artwork' => $artwork,
-            'images' => $artwork->images()->wherePivot('is_primary', false)->get(),
+            'images' => $artwork->galleryImages,
         ]);
     }
 
@@ -67,7 +76,10 @@ class ArtworkController extends Controller
      */
     public function edit(Artwork $artwork)
     {
-        //
+        return view('artwork.edit', [
+            'artwork' => $artwork,
+            'publishedAt' => $artwork->published_at->toDateTimeString(),
+        ]);
     }
 
     /**
@@ -77,9 +89,13 @@ class ArtworkController extends Controller
      * @param  \App\Models\Artwork  $artwork
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateArtworkRequest $request, Artwork $artwork)
+    public function update(UpdateArtworkRequest $request, Artwork $artwork, CreateOrUpdateArtworkFromRequest $action)
     {
-        //
+        $action->setArtwork($artwork)->execute($request);
+
+        $request->session()->flash('success', 'Artwork updated successfully');
+
+        return redirect($artwork->path);
     }
 
     /**

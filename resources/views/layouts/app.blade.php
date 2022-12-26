@@ -4,11 +4,24 @@
     <header id="header">
         <div class="container">
             <nav id="nav">
-                <ul>
+                <ul class="navbar">
                     <li>
-                        <a href="{{ route('home') }}">Artwork</a>
+                        <a
+                            href="{{ route('home') }}"
+                        >Home</a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/NoseGraze" target="_blank">Twitter</a>
                     </li>
                 </ul>
+
+                @can('create', App\Models\Artwork::class)
+                    <ul class="navbar">
+                        <li>
+                            <a href="{{ route('artworks.create') }}">Create</a>
+                        </li>
+                    </ul>
+                @endcan
             </nav>
         </div>
     </header>

@@ -18,7 +18,7 @@ class ArtworkPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class ArtworkPolicy
      */
     public function view(User $user, Artwork $artwork)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class ArtworkPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class ArtworkPolicy
      */
     public function update(User $user, Artwork $artwork)
     {
-        //
+        return $user->is($artwork->user);
     }
 
     /**
@@ -65,7 +65,7 @@ class ArtworkPolicy
      */
     public function delete(User $user, Artwork $artwork)
     {
-        //
+        return $user->is($artwork->user);
     }
 
     /**
@@ -77,7 +77,7 @@ class ArtworkPolicy
      */
     public function restore(User $user, Artwork $artwork)
     {
-        //
+        return $user->is($artwork->user);
     }
 
     /**
@@ -89,6 +89,6 @@ class ArtworkPolicy
      */
     public function forceDelete(User $user, Artwork $artwork)
     {
-        //
+        return $user->is($artwork->user);
     }
 }

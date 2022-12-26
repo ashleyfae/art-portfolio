@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  *
  * @property Image[]|Collection $images
  * @property Image|null $primaryImage
+ * @property Image[]|Collection $galleryImages
  * @property Category[]|Collection $categories
  *
  * @mixin Builder
@@ -37,6 +38,11 @@ class Artwork extends Model
         'published_at' => 'datetime',
         'external_ids' => 'array',
         'is_featured' => 'boolean',
+    ];
+
+    protected $fillable = [
+        'is_featured',
+        'published_at',
     ];
 
     public function categories(): BelongsToMany
@@ -61,5 +67,10 @@ class Artwork extends Model
             'image_id'
         )
             ->where('is_primary', true);
+    }
+
+    public function galleryImages() : BelongsToMany
+    {
+        return $this->images()->wherePivot('is_primary', false);
     }
 }
