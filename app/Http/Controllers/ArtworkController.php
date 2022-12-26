@@ -16,7 +16,7 @@ class ArtworkController extends Controller
      */
     public function index(FilterArtworkRequest $request, ListArtwork $listArtwork)
     {
-        return view('home', [
+        return view('artwork.index', [
             'artworks' => $listArtwork->list(FilterArtwork::fromArray($request->validated())),
         ]);
     }
@@ -50,7 +50,10 @@ class ArtworkController extends Controller
      */
     public function show(Artwork $artwork)
     {
-        //
+        return view('artwork.show', [
+            'artwork' => $artwork,
+            'images' => $artwork->images()->wherePivot('is_primary', false)->get(),
+        ]);
     }
 
     /**

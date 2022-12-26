@@ -6,7 +6,7 @@
             <nav id="nav">
                 <ul>
                     <li>
-                        <a href="{{ route('home') }}">Home</a>
+                        <a href="{{ route('home') }}">Artwork</a>
                     </li>
                 </ul>
             </nav>

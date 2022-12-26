@@ -26,9 +26,17 @@ img {
     height: auto;
 }
 
+figure {
+    margin: 0 0 2rem;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .gallery {
@@ -56,4 +64,10 @@ img {
     .gallery {
         column-count: 3;
     }
+}
+
+#nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
 }

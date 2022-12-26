@@ -19,6 +19,10 @@ Route::get('/', [\App\Http\Controllers\ArtworkController::class, 'index'])
 Route::get('/artwork/{artwork:uuid}', [\App\Http\Controllers\ArtworkController::class, 'show'])
     ->name('artworks.show');
 
+Route::resource('artworks', \App\Http\Controllers\ArtworkController::class)->except([
+    'index', 'show',
+]);
+
 Route::get('/deviantart/redirect', \App\Http\Controllers\ImportProviders\DeviantArt\DeviantArtRedirectController::class)
     ->name('deviantart.redirect')
     ->middleware('auth');
