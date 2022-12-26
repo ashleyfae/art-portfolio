@@ -16,8 +16,11 @@ class ArtworkController extends Controller
      */
     public function index(FilterArtworkRequest $request, ListArtwork $listArtwork)
     {
+        $filter = FilterArtwork::fromArray($request->validated());
+
         return view('artwork.index', [
-            'artworks' => $listArtwork->list(FilterArtwork::fromArray($request->validated())),
+            'artworks' => $listArtwork->list($filter),
+            'filter' => $filter,
         ]);
     }
 

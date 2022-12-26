@@ -4,13 +4,16 @@
 <nav id="gallery-nav" role="navigation">
     <ul class="navbar">
         <li>
-            <button
-                type="button"
-                id="artwork-filter"
-                class="has-dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            ></button>
+            <a
+                href="{{ route('home', ['show_all' => true]) }}"
+                @class(['button', 'is-active' => $filter->showAll])
+            >All Artwork</a>
+        </li>
+        <li>
+            <a
+                href="{{ route('home', ['show_all' => false]) }}"
+                @class(['button', 'is-active' => ! $filter->showAll])
+            >Featured</a>
         </li>
     </ul>
 </nav>
