@@ -53,7 +53,7 @@ class Artwork extends Model
     public function images(): BelongsToMany
     {
         return $this->belongsToMany(Image::class)
-            ->with('is_primary');
+            ->withPivot('is_primary');
     }
 
     public function primaryImage(): HasOneThrough

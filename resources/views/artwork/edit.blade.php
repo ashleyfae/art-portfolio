@@ -9,11 +9,22 @@
 
         @include('artwork.partials._artwork-form', ['artwork' => $artwork])
 
-        <p>
+        <div class="submit text-right">
             <button
                 type="submit"
-                class="button"
             >Update</button>
-        </p>
+        </div>
+    </form>
+
+    <hr>
+
+    <form method="POST" action="{{ route('artworks.destroy', $artwork) }}">
+        @csrf
+        @method('DELETE')
+
+        <button
+            type="submit"
+            class="button is-danger"
+        >Delete</button>
     </form>
 @endsection

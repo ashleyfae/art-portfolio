@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Artwork\CreateOrUpdateArtworkFromRequest;
+use App\Actions\Artwork\DeleteArtwork;
 use App\Actions\Artwork\ListArtwork;
 use App\DataTransferObjects\FilterArtwork;
 use App\Http\Requests\FilterArtworkRequest;
@@ -109,8 +110,10 @@ class ArtworkController extends Controller
      * @param  \App\Models\Artwork  $artwork
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Artwork $artwork)
+    public function destroy(Artwork $artwork, DeleteArtwork $action)
     {
-        //
+        $action->execute($artwork);
+
+        return redirect(route('home'));
     }
 }

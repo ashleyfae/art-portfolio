@@ -12,6 +12,8 @@
     --color-red-400: #f87171;
     --color-red-500: #EF4444;
 
+    --color-green-700: #388e3c;
+
     --color-primary: var(--color-pink);
 
     --color-bg: #171c25;
@@ -31,6 +33,8 @@
     --color-input: var(--color-grey-800);
     --color-input-border: var(--color-grey-600);
     --color-input-text: var(--color-grey-200);
+
+    --color-context-success: var(--color-green-700);
 }
 
 * {
@@ -60,6 +64,10 @@ img {
 
 figure {
     margin: 0 0 2rem;
+}
+
+hr {
+    margin: 4rem 0;
 }
 
 .container {
@@ -96,6 +104,10 @@ figure {
 .button:hover, button:hover {
     --color-button: var(--color-grey-600);
     text-decoration: none;
+}
+.button.is-danger, button.is-danger {
+    --color-button: var(--color-red-500);
+    --color-button-border: var(--color-red-500);
 }
 
 #header {
@@ -199,6 +211,13 @@ input[type="text"]:focus, textarea:focus {
 }
 input[type="checkbox"] + label {
     display: inline-block;
+}
+.submit {
+    --color-button: var(--color-context-success);
+    --color-button-border: var(--color-context-success);
+    --color-button-text: #fff;
+    margin-top: 2rem;
+    text-align: right;
 }
 
 @media (min-width: 600px) {

@@ -53,7 +53,7 @@ class ArtworkPolicy
      */
     public function update(User $user, Artwork $artwork)
     {
-        return $user->is($artwork->user);
+        return $user->id === $artwork->user_id;
     }
 
     /**

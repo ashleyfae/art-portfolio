@@ -88,7 +88,7 @@ class ArtworkControllerTest extends TestCase
         ]));
 
         // don't know why image validation is failing
-        
+
         $this->assertDatabaseHas(Artwork::class, ['user_id' => $user->id]);
 
         $response->assertRedirectToRoute('artworks.show');

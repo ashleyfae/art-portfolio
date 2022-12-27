@@ -1,5 +1,3 @@
-<?php $number = 0; ?>
-
 @if ($errors->any())
     <div class="errors">
         <ul>
@@ -16,35 +14,8 @@
 <x-artwork.image-form
     :image="$artwork->primaryImage"
     :primary="true"
-    number="{{ $number }}"
+    number="0"
 />
-<?php $number++; ?>
-
-<h2>Gallery</h2>
-
-<div id="gallery-images">
-    @foreach($artwork->galleryImages as $image)
-        <div class="gallery-image">
-            <x-artwork.image-form
-                :image="$image"
-                :primary="false"
-                number="{{ $number }}"
-            />
-        </div>
-        <?php $number++; ?>
-    @endforeach
-</div>
-
-<div id="gallery-image-template" class="hidden">
-    <div class="gallery-image">
-        <x-artwork.image-form
-            :image="null"
-            :primary="false"
-            :disabled="true"
-            number="{{ $number }}"
-        />
-    </div>
-</div>
 
 <h2>Settings</h2>
 
@@ -69,7 +40,33 @@
     >
 </div>
 
+
+<h2>Gallery</h2>
+
+<div id="gallery-images">
+    @foreach($artwork->galleryImages as $index => $image)
+        <div class="gallery-image">
+            <x-artwork.image-form
+                :image="$image"
+                :primary="false"
+                number="{{ $index + 1 }}"
+            />
+        </div>
+    @endforeach
+</div>
+
 <button
     type="button"
     id="new-gallery-image"
 >Add Image</button>
+
+<div id="gallery-image-template" class="hidden">
+    <div class="gallery-image">
+        <x-artwork.image-form
+            :image="null"
+            :primary="false"
+            :disabled="true"
+            number="0"
+        />
+    </div>
+</div>

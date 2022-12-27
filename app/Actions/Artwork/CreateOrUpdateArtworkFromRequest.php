@@ -33,6 +33,9 @@ class CreateOrUpdateArtworkFromRequest
         return $this;
     }
 
+    /**
+     * @throws MissingArtworkObjectException
+     */
     public function execute(StoreArtworkRequest|UpdateArtworkRequest $request): Artwork
     {
         $this->request = $request;
@@ -55,10 +58,10 @@ class CreateOrUpdateArtworkFromRequest
      */
     protected function updateOrCreateArtwork() : Artwork
     {
-        if ($this->request instanceof StoreArtworkRequest) {
-            $artwork = $this->createArtwork();
-        } else {
+        if ($this->request instanceof UpdateArtworkRequest) {
             $artwork = $this->getArtwork();
+        } else {
+            $artwork = $this->createArtwork();
         }
 
         $artwork->is_featured = ! empty($this->data['is_featured']);
