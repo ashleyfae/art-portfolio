@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\ArtworkController::class, 'index'])
+Route::get('/{year?}/{month?}', [\App\Http\Controllers\ArtworkController::class, 'index'])
+    ->where([
+        'year'  => '^\d{4}$',
+        'month' => '^[0-9]+$',
+    ])
     ->name('home');
 
 Route::get('/artwork/{artwork:uuid}', [\App\Http\Controllers\ArtworkController::class, 'show'])

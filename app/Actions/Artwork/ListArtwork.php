@@ -22,6 +22,7 @@ class ListArtwork
             ->with(['primaryImage'])
             ->orderByDesc('published_at')
             ->when(! is_null($filter->year), fn(Builder $query) => $query->whereYear('published_at', $filter->year))
+            ->when(! is_null($filter->month), fn(Builder $query) => $query->whereMonth('published_at', $filter->month))
             ->when(! $filter->showAll, fn(Builder $query) => $query->where('is_featured', true))
             ->paginate(40);
     }

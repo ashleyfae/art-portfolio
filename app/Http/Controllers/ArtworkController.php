@@ -24,7 +24,10 @@ class ArtworkController extends Controller
      */
     public function index(FilterArtworkRequest $request, ListArtwork $listArtwork)
     {
-        $filter = FilterArtwork::fromArray($request->validated());
+        $filter = FilterArtwork::fromArray(array_merge($request->validated(), array_filter([
+            'year' => $request->route('year'),
+            'month' => $request->route('month')
+        ])));
 
         return view('artwork.index', [
             'artworks' => $listArtwork->list($filter),

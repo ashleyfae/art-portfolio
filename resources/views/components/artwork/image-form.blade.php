@@ -1,6 +1,8 @@
 @if($image && $image->image_path)
     <figure class="gallery-image-image">
-        <img src="{{ \Illuminate\Support\Facades\Storage::url($image->image_path) }}">
+        <img
+            src="{{ $image->imageUrl }}"
+        >
     </figure>
 @endif
 

@@ -16,7 +16,7 @@
 
         <figure class="text-center">
             <img
-                src="{{ \Illuminate\Support\Facades\Storage::url($artwork->primaryImage->image_path) }}"
+                src="{{ $artwork->primaryImage->imageUrl }}"
                 alt="{{ $artwork->primaryImage->alt_text }}"
             >
         </figure>
@@ -34,7 +34,7 @@
 
                     <figure class="text-center">
                         <img
-                            src="{{ \Illuminate\Support\Facades\Storage::url($image->image_path) }}"
+                            src="{{ $image->imageUrl }}"
                             alt="{{ $image->alt_text }}"
                         >
                     </figure>
