@@ -3,7 +3,7 @@
 @section('main')
     <h1>Edit Artwork</h1>
 
-    <form method="POST" action="{{ route('artworks.update', $artwork) }}">
+    <form method="POST" action="{{ route('artworks.update', $artwork) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 

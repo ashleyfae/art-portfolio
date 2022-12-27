@@ -27,8 +27,8 @@ return new class extends Migration
         });
 
         Schema::create('artwork_image', function(Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Artwork::class);
-            $table->foreignIdFor(\App\Models\Image::class);
+            $table->foreignIdFor(\App\Models\Artwork::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Image::class)->constrained()->cascadeOnDelete();
             $table->boolean('is_primary')->default(false);
 
             $table->unique(['artwork_id', 'image_id']);

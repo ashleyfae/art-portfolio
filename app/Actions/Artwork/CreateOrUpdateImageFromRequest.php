@@ -9,9 +9,12 @@
 
 namespace App\Actions\Artwork;
 
+use App\Exceptions\ImageUploadException;
 use App\Http\Requests\StoreArtworkRequest;
 use App\Http\Requests\UpdateArtworkRequest;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Storage;
 
 class CreateOrUpdateImageFromRequest
 {
@@ -25,6 +28,9 @@ class CreateOrUpdateImageFromRequest
         return $this;
     }
 
+    /**
+     * @throws ImageUploadException
+     */
     public function execute(StoreArtworkRequest|UpdateArtworkRequest $request, int|string $index) : Image
     {
         $this->request = $request;
@@ -34,7 +40,11 @@ class CreateOrUpdateImageFromRequest
         $image->description = $this->data['description'] ?? null;
 
         if ($file = $this->request->file("images.{$index}.image")) {
-            $image->image_path = $file->store('');
+            $image->image_path = $file->storePublicly(date('Y/m'));
+
+            if (empty($image->image_path) || ! Storage::exists($image->image_path)) {
+                throw new ImageUploadException();
+            }
         }
 
         $image->save();
@@ -42,6 +52,9 @@ class CreateOrUpdateImageFromRequest
         return $image;
     }
 
+    /**
+     * @throws ModelNotFoundException
+     */
     protected function getOrCreateImage(): Image
     {
         if (! empty($this->data['id'])) {

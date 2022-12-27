@@ -66,7 +66,7 @@ class CreateOrUpdateArtworkFromRequest
 
         $artwork->save();
 
-        return $this->artwork;
+        return $artwork;
     }
 
     protected function createArtwork() : Artwork

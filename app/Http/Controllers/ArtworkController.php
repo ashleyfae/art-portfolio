@@ -13,6 +13,11 @@ use Illuminate\Support\Carbon;
 
 class ArtworkController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -51,7 +56,7 @@ class ArtworkController extends Controller
 
         $request->session()->flash('success', 'Artwork created successfully');
 
-        return redirect($artwork->path);
+        return redirect($artwork->refresh()->path);
     }
 
     /**

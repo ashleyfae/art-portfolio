@@ -14,7 +14,7 @@ class StoreArtworkRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('create', Artwork::class);
+        return auth()->user() && auth()->user()->can('create', Artwork::class);
     }
 
     /**
@@ -25,14 +25,14 @@ class StoreArtworkRequest extends FormRequest
     public function rules()
     {
         return [
-            'images.*.image' => ['required', 'image'],
+            'images.*.image' => ['required', 'image', 'max:10000'],
             'images.*.title' => ['nullable', 'string', 'max:255'],
             'images.*.description' => ['nullable', 'string', 'max:10000'],
             'images.*.alt_text' => ['nullable', 'string', 'max:1000'],
-            'images.*.primary' => ['required', 'boolean'],
+            'images.*.primary' => ['nullable', 'boolean'],
             'images.*.id' => ['nullable', 'exists:images,id'],
             'is_featured' => ['nullable', 'boolean'],
-            'published_at' => ['required', 'datetime'],
+            'published_at' => ['required', 'date'],
         ];
     }
 }

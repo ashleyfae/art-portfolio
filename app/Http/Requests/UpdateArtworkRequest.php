@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateArtworkRequest extends FormRequest
+class UpdateArtworkRequest extends StoreArtworkRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +11,7 @@ class UpdateArtworkRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user() && auth()->user()->can('update', $this->route('artwork'));
     }
 
     /**
@@ -23,8 +21,16 @@ class UpdateArtworkRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $rules = parent::rules();
+
+        $imageRules = $rules['images.*.image'];
+        $requiredKey = array_search('required', $imageRules);
+        if ($requiredKey !== false) {
+            unset($imageRules[$requiredKey]);
+        }
+
+        $rules['images.*.image'] = $imageRules;
+
+        return $rules;
     }
 }

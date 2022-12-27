@@ -46,6 +46,6 @@ class ImageObserver
      */
     public function deleted(Image $image)
     {
-        Storage::disk('public')->delete($image->image_path);
+        Storage::delete($image->image_path);
     }
 }

@@ -10,6 +10,7 @@
     --color-pink: #f9009d;
 
     --color-red-400: #f87171;
+    --color-red-500: #EF4444;
 
     --color-primary: var(--color-pink);
 
@@ -166,6 +167,13 @@ figure {
 }
 
 /****** Forms */
+.errors {
+    background: var(--color-red-500);
+    border-radius: 3px;
+    color: #333;
+    padding: .15rem;
+}
+
 .field {
     margin-bottom: 1rem;
 }

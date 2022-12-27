@@ -17,7 +17,7 @@ class SetImageDimensions
 {
     public function parseAndSet(Image $image): Image
     {
-        $filePath = Storage::disk('public')->path($image->image_path);
+        $filePath = Storage::path($image->image_path);
         if (! $filePath) {
             return $image;
         }

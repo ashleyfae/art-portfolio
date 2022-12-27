@@ -78,7 +78,7 @@ class SaveImportedArtwork implements ShouldQueue, ShouldBeUnique
 
         $fileName = date('Y/m', $this->artworkDto->publishedAt).'/'.$uniqueId.'.jpg';
 
-        if (Storage::disk('public')->put($fileName, $this->getFileContents())) {
+        if (Storage::put($fileName, $this->getFileContents())) {
             return $fileName;
         }  else {
             throw new DownloadImageException();
