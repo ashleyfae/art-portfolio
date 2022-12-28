@@ -46,9 +46,9 @@ class DeviantArtGalleryFormatter
         $this->metadata = $this->getMetadata();
 
         return array_filter(array_map(function(array $result) {
-            if (Arr::get($result, 'category_path') !== 'visual_art') {
+            /*if (Arr::get($result, 'category_path') !== 'visual_art') {
                 return null;
-            }
+            }*/
 
             return (new DeviationAdapter($result, $this->getMetadataForResult($result)))->convertFromSource();
         }, $this->galleryResults));

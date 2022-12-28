@@ -73,13 +73,14 @@ class ImportPortfolio
 
         while(! $this->completed) {
             $batch = $this->importBatch();
-
-            if (! $this->paginate) {
-                return;
-            }
+            $this->offset += $this->limit;
 
             if ($this->isDryRun) {
                 dd($batch);
+            }
+
+            if (! $this->paginate) {
+                return;
             }
         }
     }

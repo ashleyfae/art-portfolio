@@ -22,7 +22,7 @@
     <div class="gallery">
         @foreach($artworks as $artwork)
             <div class="gallery--item">
-                <a href="{{ $artwork->path }}">
+                <a href="{{ $artwork->path }}" class="gallery--content">
                     <img
                         src="{{ $artwork->primaryImage->imageUrl }}"
                         alt="{{ $artwork->primaryImage->alt_text }}"

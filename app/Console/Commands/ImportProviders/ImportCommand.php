@@ -15,7 +15,7 @@ class ImportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'portfolio:import {email?} {--limit=24} {--offset=0} {--nopaging} {--dry-run}';
+    protected $signature = 'portfolio:import {email?} {--limit=10} {--offset=0} {--nopaging} {--dry-run}';
 
     /**
      * The console command description.
