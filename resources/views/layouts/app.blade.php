@@ -30,9 +30,7 @@
         @yield('main')
     </main>
 
-    <footer id="footer" class="container mt-9 pt-6 pb-4">
-        <div class="md:flex md:justify-between gap-2">
-            <div class="colour--subtitle">&copy; Ashley Gibson.</div>
-        </div>
+    <footer id="footer" class="container">
+        <div class="colour--subtitle">&copy; {{ date('Y') }} Ashley Gibson. All Rights Reserved.</div>
     </footer>
 @endsection
