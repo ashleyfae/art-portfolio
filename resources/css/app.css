@@ -6,6 +6,7 @@
     --color-grey-600: #4b5563;
     --color-grey-700: #374151;
     --color-grey-800: #1f2937;
+    --color-grey-900: #111827;
 
     --color-blue-400: #60a5fa;
 
@@ -37,6 +38,37 @@
     --color-input-text: var(--color-grey-200);
 
     --color-context-success: var(--color-green-700);
+
+
+
+
+
+
+
+
+    --color-ck-editor-primary: var(--color-grey-900);
+    --color-ck-editor-primary-hover: var(--color-navbar-hover);
+    --color-ck-editor-shadow: var(--color-grey-900);
+
+    --ck-color-base-background: var(--color-input) !important;
+    --ck-color-base-border: var(--color-input-border) !important;
+    --ck-color-toolbar-background: var(--color-grey-800) !important;
+    --ck-color-toolbar-border: var(--color-input-border) !important;
+    --ck-color-text: var(--color-text) !important;
+    --ck-color-button-on-background: var(--color-ck-editor-primary) !important;
+    --ck-color-button-default-hover-background: var(--color-ck-editor-primary-hover) !important;
+    --ck-color-button-on-hover-background: var(--color-ck-editor-primary-hover) !important;
+    --ck-color-button-on-active-background: var(--color-ck-editor-primary-hover) !important;
+    --ck-color-list-button-on-background-focus: var(--color-ck-editor-primary-hover) !important;
+    --ck-color-button-default-active-background: var(--color-ck-editor-primary-hover) !important;
+    --ck-color-list-button-on-background: var(--color-ck-editor-primary-hover) !important;
+    --ck-color-list-button-on-text: #fff !important;
+    --ck-color-list-background: #000 !important;
+    --ck-color-list-button-hover-background: var(--color-grey-800) !important;
+
+    --ck-color-focus-outer-shadow: var(--color-ck-editor-shadow) !important;
+    --ck-color-button-on-active-shadow: var(--color-ck-editor-shadow) !important;
+    --ck-color-button-default-active-shadow: var(--color-ck-editor-shadow) !important;
 }
 
 * {
@@ -86,6 +118,10 @@ hr {
 .text-center {
     text-align: center;
 }
+.text-right {
+    text-align: right !important;
+}
+
 .colour--danger, .colour--danger a {
     color: var(--color-danger)!important;
 }
@@ -230,7 +266,11 @@ input[type="checkbox"] + label {
     --color-button-border: var(--color-context-success);
     --color-button-text: #fff;
     margin-top: 2rem;
-    text-align: right;
+}
+
+/****** Visual Editor */
+.ck-editor__editable {
+    min-height: 300px;
 }
 
 /****** Pagination */

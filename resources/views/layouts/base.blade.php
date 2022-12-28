@@ -16,5 +16,9 @@
 @yield('body')
 
 @vite('resources/js/app.js')
+
+@if(\Illuminate\Support\Facades\Route::currentRouteName() === 'artworks.create' || \Illuminate\Support\Facades\Route::currentRouteName() === 'artworks.edit')
+    @vite('resources/js/ckeditor.js')
+@endif
 </body>
 </html>

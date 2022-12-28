@@ -33,6 +33,7 @@
     <label for="artwork-description-{{ $uniqueId }}">Description:</label>
     <textarea
         id="artwork-description-{{ $uniqueId }}"
+        class="visual-editor"
         name="images[{{ $number }}][description]"
         rows="10"
         data-key="description"

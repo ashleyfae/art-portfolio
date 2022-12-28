@@ -8,7 +8,7 @@
 
         @include('artwork.partials._artwork-form', ['artwork' => $artwork])
 
-        <div class="submit text-right">
+        <div class="submit">
             <button
                 type="submit"
             >Create</button>

@@ -22,7 +22,7 @@
         </figure>
 
         @if($artwork->primaryImage->description)
-            <p>{{ $artwork->primaryImage->description }}</p>
+            {!! ($artwork->primaryImage->description) !!}
         @endif
 
         @if($images->isNotEmpty())
@@ -40,7 +40,7 @@
                     </figure>
 
                     @if($image->description)
-                        <p>{{ $image->description }}</p>
+                        {!! ($image->description) !!}
                     @endif
                 @endforeach
             </div>

@@ -47,6 +47,10 @@ class DeleteArtworkCommand extends Command
 
         $this->line("Deleted {$numberDeleted} artwork(s).");
 
+        if ($this->confirm('Delete category as well?')) {
+            $category->delete();
+        }
+
         return Command::SUCCESS;
     }
 }

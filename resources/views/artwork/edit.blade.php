@@ -9,7 +9,7 @@
 
         @include('artwork.partials._artwork-form', ['artwork' => $artwork])
 
-        <div class="submit text-right">
+        <div class="submit">
             <button
                 type="submit"
             >Update</button>
@@ -18,7 +18,7 @@
 
     <hr>
 
-    <form method="POST" action="{{ route('artworks.destroy', $artwork) }}">
+    <form class="text-right" method="POST" action="{{ route('artworks.destroy', $artwork) }}">
         @csrf
         @method('DELETE')
 
