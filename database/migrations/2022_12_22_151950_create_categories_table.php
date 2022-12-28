@@ -20,8 +20,8 @@ return new class extends Migration
         });
 
         Schema::create('artwork_category', function(Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Artwork::class)->index();
-            $table->foreignIdFor(\App\Models\Category::class);
+            $table->foreignIdFor(\App\Models\Artwork::class)->index()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Category::class)->constrained()->cascadeOnDelete();
 
             $table->unique(['category_id', 'artwork_id']);
         });

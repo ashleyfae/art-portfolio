@@ -31,6 +31,24 @@
 </div>
 
 <div class="field">
+    <p><strong>Categories:</strong></p>
+    <ul>
+        @foreach($categories as $category)
+            <li>
+                <input
+                    type="checkbox"
+                    id="category-{{ $category->id }}"
+                    name="categories[]"
+                    value="{{ $category->id }}"
+                    @if($artwork->categories->pluck('id')->contains($category->id)) checked @endif
+                >
+                <label for="category-{{ $category->id }}">{{ $category->name }}</label>
+            </li>
+        @endforeach
+    </ul>
+</div>
+
+<div class="field">
     <label for="published-at">Published At: <span class="colour--danger">*</span></label>
     <input
         type="text"

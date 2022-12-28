@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Artwork;
+use App\Rules\CategoryIdOrNameRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreArtworkRequest extends FormRequest
@@ -33,6 +34,8 @@ class StoreArtworkRequest extends FormRequest
             'images.*.id' => ['nullable', 'exists:images,id'],
             'is_featured' => ['nullable', 'boolean'],
             'published_at' => ['required', 'date'],
+            'categories' => ['nullable', 'array'],
+            'categories.*' => [new CategoryIdOrNameRule()],
         ];
     }
 }

@@ -214,4 +214,16 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | No Indexing
+    |--------------------------------------------------------------------------
+    |
+    | Enable or disable search engine indexing.
+    | @link https://developers.google.com/search/docs/crawling-indexing/block-indexing
+    |
+    */
+
+    'noindex' => true,
+
 ];

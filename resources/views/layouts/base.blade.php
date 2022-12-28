@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    @if(\Illuminate\Support\Facades\Config::get('app.noindex'))
+        <meta name="robots" content="noindex">
+    @endif
+
     <title>{{ $title ?? 'Artwork by Ashley Gibson' }}</title>
 
     @vite('resources/css/app.css')

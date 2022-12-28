@@ -10,6 +10,7 @@ use App\Http\Requests\FilterArtworkRequest;
 use App\Http\Requests\StoreArtworkRequest;
 use App\Http\Requests\UpdateArtworkRequest;
 use App\Models\Artwork;
+use App\Models\Category;
 use Illuminate\Support\Carbon;
 
 class ArtworkController extends Controller
@@ -45,6 +46,7 @@ class ArtworkController extends Controller
         return view('artwork.create', [
             'artwork' => (new Artwork())->setAttribute('is_featured', true),
             'publishedAt' => Carbon::now()->toDateTimeString(),
+            'categories' => Category::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -85,9 +87,12 @@ class ArtworkController extends Controller
      */
     public function edit(Artwork $artwork)
     {
+        $artwork->load(['categories']);
+
         return view('artwork.edit', [
             'artwork' => $artwork,
             'publishedAt' => $artwork->published_at->toDateTimeString(),
+            'categories' => Category::query()->orderBy('name')->get(),
         ]);
     }
 

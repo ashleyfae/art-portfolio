@@ -13,6 +13,7 @@ use App\Exceptions\MissingArtworkObjectException;
 use App\Http\Requests\StoreArtworkRequest;
 use App\Http\Requests\UpdateArtworkRequest;
 use App\Models\Artwork;
+use App\Models\Category;
 use App\Models\Image;
 use Illuminate\Support\Facades\DB;
 
@@ -44,6 +45,7 @@ class CreateOrUpdateArtworkFromRequest
         DB::transaction(function() {
             $this->artwork = $this->updateOrCreateArtwork();
             $this->artwork->images()->sync($this->createOrUpdateImages());
+            $this->artwork->categories()->sync($this->createOrUpdateCategories());
         });
 
         if (! isset($this->artwork)) {
@@ -112,5 +114,36 @@ class CreateOrUpdateArtworkFromRequest
     protected function updateOrCreateImage(array $requestImage, int|string $index): Image
     {
         return $this->createOrUpdateImageFromRequest->setData($requestImage)->execute($this->request, $index);
+    }
+
+    protected function createOrUpdateCategories(): array
+    {
+        $categories = [];
+        $requestCats = array_filter($this->data['categories'] ?? []);
+
+        if (empty($requestCats)) {
+            return $categories;
+        }
+
+        foreach($requestCats as $requestCat) {
+            try {
+                $category = $this->getOrCreateCategory($requestCat);
+
+                $categories[] = $category->id;
+            } catch(\Exception $e) {
+                continue;
+            }
+        }
+
+        return $categories;
+    }
+
+    protected function getOrCreateCategory(string|int $categoryIdOrName): Category
+    {
+        if (is_numeric($categoryIdOrName)) {
+            return Category::findOrFail($categoryIdOrName);
+        } else {
+            return Category::firstOrCreate(['name' => $categoryIdOrName]);
+        }
     }
 }
