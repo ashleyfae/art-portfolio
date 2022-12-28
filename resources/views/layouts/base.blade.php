@@ -15,7 +15,6 @@
 <body class="{{ $bodyClass ?? '' }}">
 @yield('body')
 
-<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 @vite('resources/js/app.js')
 
 @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'artworks.create' || \Illuminate\Support\Facades\Route::currentRouteName() === 'artworks.edit')

@@ -1,4 +1,5 @@
 import './bootstrap';
+import './imagesloaded.pkgd.min';
 import './artwork-form';
 import './masonry';
 
