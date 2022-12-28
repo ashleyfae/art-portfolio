@@ -24,3 +24,13 @@ window.addEventListener( "resize", resizeAllGridItems );
 document.addEventListener('DOMContentLoaded', () => {
     resizeAllGridItems();
 })
+
+if (typeof imagesLoaded === 'function') {
+    const gallery = document.querySelector('.gallery');
+
+    if (gallery) {
+        imagesLoaded(gallery, instance => {
+            resizeAllGridItems();
+        } )
+    }
+}
