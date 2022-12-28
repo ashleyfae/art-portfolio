@@ -207,7 +207,10 @@ hr {
     font-weight: 600;
     margin-bottom: 0.125rem;
 }
-input[type="text"], textarea {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
     border-radius: 0.375rem;
     font-size: .875rem;
     line-height: 1.25rem;
@@ -218,7 +221,10 @@ input[type="text"], textarea {
     padding: 0.5rem 0.75rem;
     width: 100%;
 }
-input[type="text"]:focus, textarea:focus {
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
     --color-input-border: var(--color-blue-400);
     outline: none;
 }
