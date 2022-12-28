@@ -18,5 +18,9 @@ function resizeInstance( instance ) {
     resizeGridItem( item );
 }
 
-window.onload = resizeAllGridItems();
+//window.onload = resizeAllGridItems();
 window.addEventListener( "resize", resizeAllGridItems );
+
+document.addEventListener('DOMContentLoaded', () => {
+    resizeAllGridItems();
+})
